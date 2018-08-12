@@ -1,5 +1,7 @@
 package com.example.dondon.recyclerview;
 
+import android.support.v4.app.FragmentContainer;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -19,11 +21,15 @@ public class MainActivity extends AppCompatActivity {
         Button StartButton = findViewById(R.id.start_button);
         StartButton.setText(" java created button");
        // setContentView();
+
+
         StartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getSupportFragmentManager().beginTransaction().commit();
+              //  getSupportFragmentManager().beginTransaction().add(,);
+
                 FragmentPopup fragmentPopup = new FragmentPopup();
+
                 //fragmentPopup();// call fragment class
 
             }
