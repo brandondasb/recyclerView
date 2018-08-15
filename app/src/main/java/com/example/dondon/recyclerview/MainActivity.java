@@ -1,6 +1,7 @@
 package com.example.dondon.recyclerview;
 
 import android.support.v4.app.FragmentContainer;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,9 +27,13 @@ public class MainActivity extends AppCompatActivity {
         StartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              //  getSupportFragmentManager().beginTransaction().add(,);
-
                 FragmentPopup fragmentPopup = new FragmentPopup();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+
+                FragmentTransaction transaction= fragmentManager.beginTransaction();
+
+                getSupportFragmentManager().beginTransaction().add(R.id.fragment_container,fragmentPopup).commit();
+
 
                 //fragmentPopup();// call fragment class
 
