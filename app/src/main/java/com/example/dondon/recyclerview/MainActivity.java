@@ -11,7 +11,7 @@ import android.support.v4.app.Fragment;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    private String string = "stgring";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,24 +23,24 @@ public class MainActivity extends AppCompatActivity {
         StartButton.setText(" java created button");
        // setContentView();
 
-
-        StartButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentPopup fragmentPopup = new FragmentPopup();
-                FragmentManager fragmentManager = getSupportFragmentManager();
-
-                FragmentTransaction transaction= fragmentManager.beginTransaction();
-
-                getSupportFragmentManager().beginTransaction().add(R.id.fragment_container,fragmentPopup).commit();
-
-
-                //fragmentPopup();// call fragment class
-
-            }
-        });
-
-
-
+        StartButton.setOnClickListener(fragmentClickListener);
     }
+
+
+
+    private View.OnClickListener fragmentClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            FragmentPopup fragmentPopup = new FragmentPopup();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+
+            FragmentTransaction transaction= fragmentManager.beginTransaction();
+
+            getSupportFragmentManager().beginTransaction().add(R.id.layout_main,fragmentPopup).commit();
+
+
+            //fragmentPopup();// call fragment class
+        }
+    };
+
 }
