@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
             // first argument is the viewGroup in which the fragment will be placed , specified by the resource
             //second argument is the fragment to add.
             fragmentTransaction.commit();
-            //must call commit for the fragment changes to take effect
+            //must call commit for the fragment changes to take
 
 
         }
