@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Button StartButton = new Button(this); //try to add new button view Java epic fail
         Button StartButton = findViewById(R.id.start_button);
-        StartButton.setText(" java created button");
+
        // setContentView();
 
         StartButton.setOnClickListener(fragmentClickListener);
@@ -31,15 +31,24 @@ public class MainActivity extends AppCompatActivity {
     private View.OnClickListener fragmentClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            FragmentPopup fragmentPopup = new FragmentPopup();
             FragmentManager fragmentManager = getSupportFragmentManager();
 
-            FragmentTransaction transaction= fragmentManager.beginTransaction();
+            FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
+            //get an instance of fragment transaction
 
-            getSupportFragmentManager().beginTransaction().add(R.id.layout_main,fragmentPopup).commit();
+           // getSupportFragmentManager().beginTransaction().add(R.id.layout_main,fragmentPopup).commit();
+            // this line was my earlier mistake, i was not using the fragment transaction even though I created an instance before
+
+            FragmentPopup fragmentPopup = new FragmentPopup();
+            // create an instance of the fragment first
+            fragmentTransaction.add(R.id.fragment_container,fragmentPopup);
+            //you can then add a fragment  by specifying the fragment and the view in which to insert it to.
+            // first argument is the viewGroup in which the fragment will be placed , specified by the resource
+            //second argument is the fragment to add.
+            fragmentTransaction.commit();
+            //must call commit for the fragment changes to take effect
 
 
-            //fragmentPopup();// call fragment class
         }
     };
 
