@@ -1,17 +1,16 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frag_popup"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:name="com.example.dondon.recyclerview"
-    android:id="@+id/frag_popup"
     android:background="@color/colorAccent">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="fragment opened" />
+    <android.support.v7.widget.RecyclerView
+        android:id='@+id/popup_recycler_view'
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-</LinearLayout>
+
+
+</RelativeLayout>

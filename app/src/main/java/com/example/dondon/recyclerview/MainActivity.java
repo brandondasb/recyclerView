@@ -1,29 +1,36 @@
 package com.example.dondon.recyclerview;
 
-import android.support.v4.app.FragmentContainer;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
-import android.support.v4.app.Fragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String string = "stgring";
+    private String string = "string";
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mlayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         //Button StartButton = new Button(this); //try to add new button view Java epic fail
         Button StartButton = findViewById(R.id.start_button);
-
-       // setContentView();
-
         StartButton.setOnClickListener(fragmentClickListener);
+
+        //
+
+
+
+
     }
 
 
@@ -36,8 +43,7 @@ public class MainActivity extends AppCompatActivity {
             FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
             //get an instance of fragment transaction
 
-           // getSupportFragmentManager().beginTransaction().add(R.id.layout_main,fragmentPopup).commit();
-            // this line was my earlier mistake, i was not using the fragment transaction even though I created an instance before
+
 
             FragmentPopup fragmentPopup = new FragmentPopup();
             // create an instance of the fragment first
