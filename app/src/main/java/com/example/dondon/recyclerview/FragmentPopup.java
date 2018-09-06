@@ -26,6 +26,7 @@ public class FragmentPopup extends Fragment {
 
         recyclerView = layout.findViewById(R.id.popup_recycler_view);
         //assigning RView to XML element
+        //wos
 
         adapter = new myAdapter(getActivity(),getData());
         //call the adapter
