@@ -2,6 +2,7 @@ package com.example.dondon.recyclerview;
 
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,12 +14,12 @@ import android.widget.TextView;
 import java.util.Collections;
 import java.util.List;
 
-public class myAdapter extends RecyclerView.Adapter<myAdapter.MyViewHolder> {
+public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private  LayoutInflater inflater;
     List<Information> data = Collections.emptyList();
     // list of data generation frm th list time class and initialise it
 
-    public myAdapter(Context context, List<Information> data) {
+    public MyAdapter(Context context, List<Information> data) {
         inflater= LayoutInflater.from(context);
         this.data = data;
     }
@@ -42,13 +43,15 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.MyViewHolder> {
        // we can pull from the list frm pulling the current position
 
         holder.title.setText(current.title);
-        holder.icon.setImageResource(current.iconID);
+
+        Drawable imageIcon = holder.itemView.getContext().getDrawable(current.iconID);// look into it
+        holder.icon.setBackground(imageIcon);
 
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return data.size();
     }
     //expects a viewHolder , it expect you to have another that extends recyclerView.ViewHolder
 

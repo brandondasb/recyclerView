@@ -55,6 +55,12 @@ public class MainActivity extends AppCompatActivity {
             //must call commit for the fragment changes to take place
 
 
+            // step 1: launch new activity with Intent
+            // step 2: that activity has new xml layout containing fragment
+            // step 3: FragmentPopup works as it does now
+            //
+
+
         }
     };
 

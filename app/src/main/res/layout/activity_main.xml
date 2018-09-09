@@ -4,14 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:orientation="vertical"
     tools:context=".MainActivity"
-    android:id="@+id/layout_main"
-    >
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
+    android:id="@+id/layout_main">
 
     <Button
         android:id="@+id/start_button"
@@ -22,7 +18,7 @@
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </FrameLayout>
+        android:layout_height="match_parent"
+        tools:background="@color/colorAccent" />
 
 </LinearLayout>

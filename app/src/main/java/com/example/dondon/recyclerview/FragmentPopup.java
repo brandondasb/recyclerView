@@ -16,7 +16,7 @@ import java.util.List;
 public class FragmentPopup extends Fragment {
     private RecyclerView recyclerView;
 
-    private myAdapter adapter;
+    private MyAdapter adapter;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -28,7 +28,7 @@ public class FragmentPopup extends Fragment {
         //assigning RView to XML element
         //wos
 
-        adapter = new myAdapter(getActivity(),getData());
+        adapter = new MyAdapter(getActivity(),getData());
         //call the adapter
         recyclerView.setAdapter(adapter);
 
@@ -40,7 +40,7 @@ public class FragmentPopup extends Fragment {
 
          public static List<Information> getData(){
              List<Information> data = new ArrayList<>();
-             int[] icons = {R.drawable.ic_launcher_background,R.drawable.ic_launcher_foreground};
+             int[] icons = {R.drawable.ic_launcher_background,R.drawable.ic_launcher_background};
              String[] titles = {"first text ","oh a second one"};
 
              for(int i=0;i<titles.length && i<icons.length;i++) {
