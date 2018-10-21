@@ -1,7 +1,9 @@
-package com.example.dondon.recyclerview;
+package com.example.dondon.recyclerview.networking;
 
 import android.os.AsyncTask;
 import android.widget.TextView;
+
+import com.example.dondon.recyclerview.networking.callbacks.GetWeatherTaskCallBack;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,9 +17,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class GetWeatherTask extends AsyncTask<String,Void,String>{
-private TextView txWeather ;
-    public GetWeatherTask(TextView textView) {
-        this.txWeather = textView;
+private GetWeatherTaskCallBack callBack ;
+    public GetWeatherTask(GetWeatherTaskCallBack callBack) {
+        this.callBack = callBack;
     }
     @Override
     protected String doInBackground(String... strings) {
@@ -53,7 +55,7 @@ private TextView txWeather ;
 
     @Override
     protected void onPostExecute(String temp) {
-        txWeather.setText("ok so the current weather is:  " + temp);
+        callBack.updateTemp("ok so the current weather is:   " + temp);
     }
 
 

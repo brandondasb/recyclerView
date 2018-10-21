@@ -5,11 +5,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.dondon.recyclerview.networking.GetWeatherTask;
+import com.example.dondon.recyclerview.networking.callbacks.GetWeatherTaskCallBack;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mlayoutManager;
+    private TextView textView ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +47,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         /*weather*/
-        TextView textView =  findViewById(R.id.tv_weather);
-        new GetWeatherTask1(textView).execute(url);
-        // new GetWeatherTask(textView).execute(url);// in diff file
+        textView =  findViewById(R.id.tv_weather);
+        //new GetWeatherTask1(textView).execute(url);
+         new GetWeatherTask(weatherTaskCallBack).execute(url);// in diff file
 
 
         //Button StartButton = new Button(this); //try to add new button view Java epic fail
@@ -87,52 +90,12 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-}
-/*weather*/
-  class GetWeatherTask1 extends AsyncTask<String,Void,String> {
-      TextView textView;
-
-    public GetWeatherTask1(TextView textView){
-         this.textView = textView;
-     }
-
-    @Override
-    protected String doInBackground(String... strings) {
-        String weather = "UNDEFINED";
-        try {
-            URL url = new URL(strings[0]); //create url connection
-            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            //open the connection
-
-            InputStream stream = new BufferedInputStream(urlConnection.getInputStream());
-            //  get the stream of data from URLS
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(stream));//buffered helps read stream of data line by line
-
-            StringBuilder builder = new StringBuilder();
-
-
-            String inputString;
-            while ((inputString = bufferedReader.readLine()) != null) {
-                builder.append(inputString);// add each line to string builder
-            }
-            JSONObject topLevel = new JSONObject(builder.toString()); // create new object instance
-            JSONObject main = topLevel.getJSONObject("main");// get Json object  named main from from api
-            weather = String.valueOf(main.getDouble("temp"));// return temp from main object
-            urlConnection.disconnect();
-
-
-        } catch (IOException | JSONException e) {
-            e.printStackTrace();
+    private GetWeatherTaskCallBack  weatherTaskCallBack = new GetWeatherTaskCallBack() {
+        @Override
+        public void updateTemp(String temp) {
+            textView.setText(temp);
         }
-
-        return weather;
-    }
-
-    @Override
-    protected void onPostExecute(String temp) {
-        textView.setText("ok so the current weather is:  " + temp);
-        //   super.onPostExecute(temp);
-    }
+    };
 }
 
 
