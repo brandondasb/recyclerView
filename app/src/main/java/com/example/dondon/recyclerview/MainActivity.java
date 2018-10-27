@@ -1,6 +1,5 @@
 package com.example.dondon.recyclerview;
 
-import android.os.AsyncTask;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -13,16 +12,7 @@ import android.widget.TextView;
 import com.example.dondon.recyclerview.networking.GetWeatherTask;
 import com.example.dondon.recyclerview.networking.callbacks.GetWeatherTaskCallBack;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,8 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         /*weather*/
         textView =  findViewById(R.id.tv_weather);
-        //new GetWeatherTask1(textView).execute(url);
-         new GetWeatherTask(weatherTaskCallBack).execute(url);// in diff file
+         new GetWeatherTask(weatherTaskCallBack).execute(url);// call call back class
 
 
         //Button StartButton = new Button(this); //try to add new button view Java epic fail

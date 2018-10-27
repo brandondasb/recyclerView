@@ -1,9 +1,12 @@
 package com.example.dondon.recyclerview.networking;
 
 import android.os.AsyncTask;
-import android.widget.TextView;
+import android.util.Log;
 
+import com.example.dondon.recyclerview.model.WeatherMain;
+import com.example.dondon.recyclerview.model.WeatherSys;
 import com.example.dondon.recyclerview.networking.callbacks.GetWeatherTaskCallBack;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,33 +27,40 @@ private GetWeatherTaskCallBack callBack ;
     @Override
     protected String doInBackground(String... strings) {
         String weather = "UNDEFINED";
+        String  currentTemp = "not serialised";
         try{
             URL url = new URL(strings[0]); //create url connection
-            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            //open the connection
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection(); //open the connection
 
-            InputStream stream = new BufferedInputStream(urlConnection.getInputStream());
-          //  get the stream of data from URLS
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(stream));//buffered helps read stream of data line by line
-
+            InputStream stream = new BufferedInputStream(urlConnection.getInputStream()); //  get the stream of dataMain from URLS
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(stream));//buffered helps read stream of dataMain line by line
             StringBuilder builder = new StringBuilder();
-
-
 
             String inputString;
             while((inputString = bufferedReader.readLine())!= null ){
             builder.append(inputString);// add each line to string builder
             }
-            JSONObject topLevel = new JSONObject(builder.toString()); // create new object instance
+
+            JSONObject topLevel = new JSONObject(builder.toString()); // create new object instance of JSON
+            // call get json objects needed from
             JSONObject main = topLevel.getJSONObject("main");// get Json object  named main from from api
-            weather = String.valueOf(main.getDouble("temp"));// return temp from main object
+            JSONObject sys = topLevel.getJSONObject("sys");// get Json object  named sys from from api
+
+
             urlConnection.disconnect();
 
+            // GSON Deserialization
+            Gson gson = new Gson();
+            WeatherMain dataMain = gson.fromJson(main.toString(), WeatherMain.class);
+            WeatherSys dataSys = gson.fromJson(sys.toString(),WeatherSys.class);
 
+            currentTemp = Float.toString(dataMain.getTemp());
+            Log.e("@@@", dataMain.getPressure().toString());
         }catch (IOException | JSONException e)
         {e.printStackTrace();}
 
-        return weather;
+      //return weather;
+        return currentTemp;
     }
 
     @Override
