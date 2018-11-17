@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.dondon.recyclerview.model.WeatherMain;
+import com.example.dondon.recyclerview.model.WeatherResponse;
 import com.example.dondon.recyclerview.model.WeatherSys;
 import com.example.dondon.recyclerview.networking.callbacks.GetWeatherTaskCallBack;
 import com.google.gson.Gson;
@@ -19,13 +20,13 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class GetWeatherTask extends AsyncTask<String,Void,String>{
+public class GetWeatherTask extends AsyncTask<String,Void,WeatherResponse>{
 private GetWeatherTaskCallBack callBack ;
     public GetWeatherTask(GetWeatherTaskCallBack callBack) {
         this.callBack = callBack;
     }
     @Override
-    protected String doInBackground(String... strings) {
+    protected WeatherResponse doInBackground(String... strings) {
         String weather = "UNDEFINED";
         String  currentTemp = "not serialised";
         try{
@@ -49,23 +50,26 @@ private GetWeatherTaskCallBack callBack ;
 
             urlConnection.disconnect();
 
-            // GSON Deserialization
+            // GSON Deserialization Convert JSON  to java Object
             Gson gson = new Gson();
+            //Json to Java Object , reads it from Json nd pass it to the data model we created earlier
             WeatherMain dataMain = gson.fromJson(main.toString(), WeatherMain.class);
             WeatherSys dataSys = gson.fromJson(sys.toString(),WeatherSys.class);
-
             currentTemp = Float.toString(dataMain.getTemp());
             Log.e("@@@", dataMain.getPressure().toString());
+
+            return gson.fromJson(builder.toString(),WeatherResponse.class);
+
         }catch (IOException | JSONException e)
         {e.printStackTrace();}
 
       //return weather;
-        return currentTemp;
+        return null;
     }
 
     @Override
-    protected void onPostExecute(String temp) {
-        callBack.updateTemp("ok so the current weather is:   " + temp);
+    protected void onPostExecute(WeatherResponse temp) {
+        callBack.updateTemp("ok so the current weather is:   " + temp.getMain().getTempMax());
     }
 
 
