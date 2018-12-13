@@ -19,10 +19,9 @@ public class MainActivity extends AppCompatActivity {
 
     /*weather api set up*/
     private static final String APP_ID = "20c0e8ec89f405053f39615cd1c590aa";
-    double lat = 40.712774, lon = -74.006091;
     String units = "metric";
-    String url = String.format("http://api.openweathermap.org/data/2.5/weather?lat=%f&lon=%f&units=%s&appid=%s",
-            lat, lon, units, APP_ID);
+    String url = String.format("http://api.openweathermap.org/data/2.5/group?id=2642743,2800865,2964630,3664980,3458494&appid=%s",
+             APP_ID);
 
     /*rest*/
     private String string = "string";
@@ -38,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
         /*weather*/
         textView =  findViewById(R.id.tv_weather);
-         new GetWeatherTask(weatherTaskCallBack).execute(url);// call call back class
+        new GetWeatherTask(weatherTaskCallBack, url).execute(url);// call call back class
 
 
         //Button StartButton = new Button(this); //try to add new button view Java epic fail
@@ -58,14 +57,13 @@ public class MainActivity extends AppCompatActivity {
             FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
             //get an instance of fragment transaction
 
-
-
             FragmentPopup fragmentPopup = new FragmentPopup();
             // create an instance of the fragment first
-            fragmentTransaction.add(R.id.fragment_container,fragmentPopup);
+            fragmentTransaction.add(android.R.id.content,fragmentPopup);// content adds it to the root
             //you can then add a fragment  by specifying the fragment and the view in which to insert it to.
             // first argument is the viewGroup in which the fragment will be placed , specified by the resource
             //second argument is the fragment to add.
+            fragmentTransaction.addToBackStack(FragmentPopup.class.getSimpleName());
             fragmentTransaction.commit();
             //must call commit for the fragment changes to take place
 

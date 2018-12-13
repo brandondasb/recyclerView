@@ -1,22 +1,15 @@
 package com.example.dondon.recyclerview.model;
 
+import java.util.List;
+
 public class WeatherResponse {
-    private WeatherMain main ;
-    private WeatherSys sys;
+    private List<Weather> list;
 
-    public WeatherMain getMain() {
-        return main;
+    public List<Weather> getList() {
+        return list;
     }
 
-    public void setMain(WeatherMain main) {
-        this.main = main;
-    }
-
-    public WeatherSys getSys() {
-        return sys;
-    }
-
-    public void setSys(WeatherSys sys) {
-        this.sys = sys;
+    public void setList(List<Weather> list) {
+        this.list = list;
     }
 }
