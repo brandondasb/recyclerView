@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.dondon.recyclerview.model.WeatherResponse;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,42 +31,26 @@ public class FragmentPopup extends Fragment {
     private RecyclerView recyclerView;
 
     private MyAdapter adapter;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View layout = inflater.inflate(R.layout.fragmentpopup,container,false);
-        //inflate the layout fo this fragment
+        View layout = inflater.inflate(R.layout.fragmentpopup, container, false);        //inflate the layout fo this fragment
+        Bundle args = getArguments();
+        if (args != null) {
+            WeatherResponse data = (WeatherResponse) args.getSerializable("weather");
 
-        recyclerView = layout.findViewById(R.id.popup_recycler_view);
-        //assigning RView to XML element
-        //wos
+            recyclerView = layout.findViewById(R.id.popup_recycler_view);        //assigning RView to XML element        //wos
+            adapter = new MyAdapter(getActivity(), data.getList() );
+            //call the adapter
+            recyclerView.setAdapter(adapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        }
 
-        adapter = new MyAdapter(getActivity(),getData());
-        //call the adapter
-        recyclerView.setAdapter(adapter);
-
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         return layout;
-         }
-
-         public static List<Information> getData(){
-             List<Information> data = new ArrayList<>();
-             int[] icons = {R.drawable.ic_launcher_background,R.drawable.ic_launcher_background};
-             String[] titles = {"first text ","oh a second one"};
-
-             for(int i=0;i<titles.length && i<icons.length;i++) {
-                 Information current = new Information();
-                 current.iconID = icons[i];
-                 current.title = titles[i];
-                 data.add(current);
-                 // map to the array list
-
-             }
-             return data;
-         }
+    }
 
 
 }

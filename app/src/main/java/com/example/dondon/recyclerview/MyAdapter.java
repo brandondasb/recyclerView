@@ -11,15 +11,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.dondon.recyclerview.model.Weather;
+
 import java.util.Collections;
 import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private  LayoutInflater inflater;
-    List<Information> data = Collections.emptyList();
+    private List<Weather> data = Collections.emptyList();
     // list of data generation frm th list time class and initialise it
 
-    public MyAdapter(Context context, List<Information> data) {
+    public MyAdapter(Context context, List<Weather> data) {
         inflater= LayoutInflater.from(context);
         this.data = data;
     }
@@ -39,14 +41,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         //this is where we set the data correspond to the current row
-        Information current = data.get(position);
+        Weather weatherData = data.get(position);
        // we can pull from the list frm pulling the current position
-
-        holder.title.setText(current.title);
-
-        Drawable imageIcon = holder.itemView.getContext().getDrawable(current.iconID);// look into it
-        holder.icon.setBackground(imageIcon);
-
+        holder.title.setText(weatherData.getName());
     }
 
     @Override

@@ -6,7 +6,7 @@ public class WeatherMain {
     //create private rep of available
     private float humidity;
     private  float temp;
-    private Integer pressure;
+    private float pressure;
 
     @SerializedName("temp_min")
     private float tempMin ;
@@ -31,7 +31,7 @@ public class WeatherMain {
         this.temp = temp;
     }
 
-    public Integer getPressure() {
+    public float getPressure() {
         return pressure;
     }
 

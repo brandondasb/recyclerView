@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.dondon.recyclerview.model.WeatherResponse;
 import com.example.dondon.recyclerview.networking.GetWeatherTask;
 import com.example.dondon.recyclerview.networking.callbacks.GetWeatherTaskCallBack;
 
@@ -34,53 +35,32 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         /*weather*/
         textView =  findViewById(R.id.tv_weather);
-        new GetWeatherTask(weatherTaskCallBack, url).execute(url);// call call back class
-
-
         //Button StartButton = new Button(this); //try to add new button view Java epic fail
         Button StartButton = findViewById(R.id.start_button);
         StartButton.setOnClickListener(fragmentClickListener);
-
-
     }
-
-
-
     private View.OnClickListener fragmentClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-
-            FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
-            //get an instance of fragment transaction
-
-            FragmentPopup fragmentPopup = new FragmentPopup();
-            // create an instance of the fragment first
-            fragmentTransaction.add(android.R.id.content,fragmentPopup);// content adds it to the root
-            //you can then add a fragment  by specifying the fragment and the view in which to insert it to.
-            // first argument is the viewGroup in which the fragment will be placed , specified by the resource
-            //second argument is the fragment to add.
-            fragmentTransaction.addToBackStack(FragmentPopup.class.getSimpleName());
-            fragmentTransaction.commit();
-            //must call commit for the fragment changes to take place
-
-
-            // step 1: launch new activity with Intent
-            // step 2: that activity has new xml layout containing fragment
-            // step 3: FragmentPopup works as it does now
-            //
-
-
+            new GetWeatherTask(weatherTaskCallBack, url).execute(url);// call call back class
         }
     };
-
     private GetWeatherTaskCallBack  weatherTaskCallBack = new GetWeatherTaskCallBack() {
         @Override
-        public void updateTemp(String temp) {
-            textView.setText(temp);
+        public void updateTemp(WeatherResponse weatherResponse) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();   //get an instance of fragment transaction
+            FragmentPopup fragmentPopup = new FragmentPopup();  // create an instance of the fragment first
+            Bundle args = new Bundle();
+            args.putSerializable("weather", weatherResponse);
+            fragmentPopup.setArguments(args);
+
+            fragmentTransaction.add(android.R.id.content,fragmentPopup);// content adds it to the root   //you can then add a fragment  by specifying the fragment and the view in which to insert it to.
+            // first argument is the viewGroup in which the fragment will be placed , specified by the resource,  //second argument is the fragment to add.
+            fragmentTransaction.addToBackStack(FragmentPopup.class.getSimpleName());
+            fragmentTransaction.commit();        //must call commit for the fragment changes to take place
         }
     };
 }
