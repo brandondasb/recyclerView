@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.example.dondon.recyclerview.model.WeatherResponse;
 import com.example.dondon.recyclerview.networking.GetWeatherTask;
 import com.example.dondon.recyclerview.networking.callbacks.GetWeatherTaskCallBack;
-
+import com.example.dondon.recyclerview.view.WeatherDetailsFragment;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -51,15 +51,15 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void updateTemp(WeatherResponse weatherResponse) {
             FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();   //get an instance of fragment transaction
-            FragmentPopup fragmentPopup = new FragmentPopup();  // create an instance of the fragment first
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();   //get an instance of fragment transaction
+            WeatherDetailsFragment weatherDetailsFragment = new WeatherDetailsFragment();  // create an instance of the fragment first
             Bundle args = new Bundle();
             args.putSerializable("weather", weatherResponse);
-            fragmentPopup.setArguments(args);
+            weatherDetailsFragment.setArguments(args);
 
-            fragmentTransaction.add(android.R.id.content,fragmentPopup);// content adds it to the root   //you can then add a fragment  by specifying the fragment and the view in which to insert it to.
+            fragmentTransaction.add(android.R.id.content, weatherDetailsFragment);// content adds it to the root   //you can then add a fragment  by specifying the fragment and the view in which to insert it to.
             // first argument is the viewGroup in which the fragment will be placed , specified by the resource,  //second argument is the fragment to add.
-            fragmentTransaction.addToBackStack(FragmentPopup.class.getSimpleName());
+            fragmentTransaction.addToBackStack(WeatherDetailsFragment.class.getSimpleName());
             fragmentTransaction.commit();        //must call commit for the fragment changes to take place
         }
     };

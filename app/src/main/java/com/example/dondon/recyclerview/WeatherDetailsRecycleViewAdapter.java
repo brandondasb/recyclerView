@@ -2,7 +2,6 @@ package com.example.dondon.recyclerview;
 
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,12 +15,12 @@ import com.example.dondon.recyclerview.model.Weather;
 import java.util.Collections;
 import java.util.List;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+public class WeatherDetailsRecycleViewAdapter extends RecyclerView.Adapter<WeatherDetailsRecycleViewAdapter.MyViewHolder> {
     private  LayoutInflater inflater;
     private List<Weather> data = Collections.emptyList();
     // list of data generation frm th list time class and initialise it
 
-    public MyAdapter(Context context, List<Weather> data) {
+    public WeatherDetailsRecycleViewAdapter(Context context, List<Weather> data) {
         inflater= LayoutInflater.from(context);
         this.data = data;
     }
